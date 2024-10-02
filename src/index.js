@@ -13,12 +13,21 @@ async function getWeather(name) {
     }
 }
 
+function fill(days, address) {
+    let h1 = document.querySelector("h1");
+    h1.textContent = address;
+    let divs = document.querySelectorAll(".day");
+    for (let i = 0; i < 7; i++) {
+        divs[i].textContent = days[i].temp;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     let btn = document.querySelector("button");
-    btn.addEventListener("click", () =>{
+    btn.addEventListener("click", async () =>{
         let input = document.querySelector("input");
-        let result
-        result = getWeather(input.value);
+        let result = await getWeather(input.value);
         console.log(result);
+        fill(result.days, result.address);
     });
 });
